@@ -2,10 +2,12 @@ package tabuleirodejogo;
 
 public class Tabuleiro
 {
+	// Atributos
 	private int linhas;
 	private int colunas;
 	private Peca [][] pecas;
 	
+	// Contrutor
 	public Tabuleiro(int rows, int columns)
 	{
 		super();
@@ -13,6 +15,8 @@ public class Tabuleiro
 		this.colunas = columns;
 		pecas = new Peca[rows][columns];
 	}
+	
+	// Getters e Setters
 	public int getLinhas()
 	{
 		return linhas;
@@ -28,5 +32,16 @@ public class Tabuleiro
 	public void setColunas(int columns)
 	{
 		this.colunas = columns;
-	}	
+	}
+	
+	// Métodos específicos
+	public Peca peca(int rown, int column)
+	{
+		return pecas[rown][column];
+	}
+	
+	public Peca peca(Posicao position)
+	{
+		return pecas[position.getLinha()][position.getColuna()];
+	}
 }
