@@ -17,9 +17,9 @@ public class Posicao
 		return linha;
 	}
 
-	public void setLinha(int linha)
+	public void setLinha(int rown)
 	{
-		this.linha = linha;
+		this.linha = rown;
 	}
 
 	public int getColuna()
@@ -27,9 +27,9 @@ public class Posicao
 		return coluna;
 	}
 
-	public void setColuna(int coluna)
+	public void setColuna(int column)
 	{
-		this.coluna = coluna;
+		this.coluna = column;
 	}
 
 	@Override
