@@ -1,5 +1,19 @@
 package xadrez.pecas;
 
-public class Rei {
+import tabuleirodejogo.Tabuleiro;
+import xadrez.Cor;
+import xadrez.PecaXadrez;
 
+public class Rei extends PecaXadrez
+{
+	public Rei(Tabuleiro board, Cor color)
+	{
+		super(board, color);		
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "K";
+	}	
 }
