@@ -42,7 +42,7 @@ public class PartidaXadrez
 	{
 		if (!tabuleiro.existePeca(position))
 		{
-			throw new ExcecaoXadrez("Não existe uma peça na posição de origem!");
+			throw new ExcecaoXadrez("Não existe uma peça na posição de origem. Tecle ENTER para retornar!");
 		}
 	}
 	
