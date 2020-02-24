@@ -59,6 +59,24 @@ public class Tabuleiro
 		//Acesso ao atributo posicao da classe Peca, por estar no mesmo pacote.
 	}
 	
+	public Peca removerPeca(Posicao position)
+	{
+		if (!existePosicao2(position))
+		{
+			throw new ExcecaoTabuleiro("Esta posição não existe no tabuleiro!");
+		}
+		
+		if (peca(position) == null)
+		{
+			return null;
+		}
+		
+		Peca auxiliar = peca(position);
+		auxiliar.posicao = null;
+		pecas[(position.getLinha())][(position.getColuna())] = null;
+		return auxiliar;
+	}
+	
 	private boolean existePosicao1(int linha, int coluna)
 	{
 		return linha >= 0 && linha < linhas && coluna >= 0 && coluna < colunas; 
