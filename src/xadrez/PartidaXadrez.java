@@ -44,6 +44,12 @@ public class PartidaXadrez
 		{
 			throw new ExcecaoXadrez("Não existe uma peça na posição de origem. Tecle ENTER para retornar!");
 		}
+		
+		// Se a peça estiver presa em determinada posição do tabuleiro, lançar uma exceção.
+		if (!tabuleiro.peca(position).pecaPresa())
+		{
+			throw new ExcecaoXadrez("Não existem movimentos possíveis disponíveis!");
+		}
 	}
 	
 	private Peca movaPeca(Posicao origem, Posicao destino)
