@@ -31,6 +31,12 @@ public class Posicao
 	{
 		this.coluna = column;
 	}
+	
+	public void atualizaValores(int row, int column)
+	{
+		this.linha = row;
+		this.coluna = column;
+	}
 
 	@Override
 	public String toString()
