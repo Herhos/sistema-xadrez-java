@@ -67,6 +67,7 @@ public class Interface
 		System.out.println("  a b c d e f g h");
 	}
 	
+	// Método imprimeTabuleiro com sobrecarga
 	public static void imprimeTabuleiro(PecaXadrez[][] pieces, boolean[][] movimentosPossiveis)
 	{
 		for(int linha = 0; linha < pieces.length; linha++)
