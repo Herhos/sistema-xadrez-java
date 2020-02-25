@@ -60,18 +60,36 @@ public class Interface
 			System.out.print((8 - linha + " "));
 			for (int coluna = 0; coluna < pieces.length; coluna++)
 			{
-				imprimePeca(pieces[linha][coluna]);
+				imprimePeca(pieces[linha][coluna], false);
 			}
 			System.out.println();
 		}
 		System.out.println("  a b c d e f g h");
 	}
 	
-	private static void imprimePeca(PecaXadrez piece)
+	public static void imprimeTabuleiro(PecaXadrez[][] pieces, boolean[][] movimentosPossiveis)
 	{
+		for(int linha = 0; linha < pieces.length; linha++)
+		{
+			System.out.print((8 - linha + " "));
+			for (int coluna = 0; coluna < pieces.length; coluna++)
+			{
+				imprimePeca(pieces[linha][coluna], movimentosPossiveis[linha][coluna]);
+			}
+			System.out.println();
+		}
+		System.out.println("  a b c d e f g h");
+	}
+	
+	private static void imprimePeca(PecaXadrez piece, boolean corFundo)
+	{
+		if (corFundo)
+		{
+			System.out.print(ANSI_YELLOW_BACKGROUND);
+		}
 		if(piece == null)
 		{
-			System.out.print("-");
+			System.out.print("-" + ANSI_RESET);
 		}
 		else
 		{
@@ -81,7 +99,7 @@ public class Interface
             }
             else
             {
-                System.out.print(ANSI_CYAN + piece + ANSI_RESET);
+                System.out.print(ANSI_RED + piece + ANSI_RESET);
             }
 		}
 		System.out.print(" ");
