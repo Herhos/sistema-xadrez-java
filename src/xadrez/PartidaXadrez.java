@@ -8,14 +8,35 @@ import xadrez.pecas.Torre;
 
 public class PartidaXadrez
 {
+	// ATRIBUTOS //
+	
+	private int rodada;
+	private Cor jogadorAtual;	
 	private Tabuleiro tabuleiro;
+	
+	// CONSTRUTOR PADRÃO //
 	
 	public PartidaXadrez()
 	{
 		tabuleiro = new Tabuleiro(8, 8);
+		rodada = 1;
+		jogadorAtual = Cor.BRANCO;
 		ajusteInicial();
 	}
 	
+	// GETTERS //
+	
+	public int getRodada()
+	{
+		return rodada;
+	}
+
+	public Cor getJogadorAtual() {
+		return jogadorAtual;
+	}
+	
+	// MÉTODOS ESPECÍFICOS //
+
 	public PecaXadrez[][] getPecas()
 	{
 		PecaXadrez[][] matriz = new PecaXadrez[tabuleiro.getLinhas()][tabuleiro.getColunas()];
@@ -43,6 +64,7 @@ public class PartidaXadrez
 		validaPosicaoOrigem(origem);
 		validaPosicaoDestino(origem, destino);
 		Peca pecaCapturada = movaPeca(origem, destino);
+		proximaRodada();
 		return (PecaXadrez)pecaCapturada;
 	}
 	
@@ -51,6 +73,11 @@ public class PartidaXadrez
 		if (!tabuleiro.existePeca(position))
 		{
 			throw new ExcecaoXadrez("Não existe uma peça na posição de origem. Tecle ENTER para retornar!");
+		}
+		
+		if (jogadorAtual != ((PecaXadrez)tabuleiro.peca(position)).getCor())
+		{
+			throw new ExcecaoXadrez("A peça escolhida não é sua!");
 		}
 		
 		// Se a peça estiver presa em determinada posição do tabuleiro, lançar uma exceção.
@@ -67,6 +94,13 @@ public class PartidaXadrez
 			throw new ExcecaoXadrez("A peça escolhida não pode ser movida"
 				+ " para a posição de destino!");
 		}
+	}
+	
+	private void proximaRodada()
+	{
+		rodada++;
+		// Essa expressão ternária abaixo substitui um IF.
+		jogadorAtual = (jogadorAtual == Cor.BRANCO) ? Cor.PRETO : Cor.BRANCO;
 	}
 	
 	private Peca movaPeca(Posicao origem, Posicao destino)

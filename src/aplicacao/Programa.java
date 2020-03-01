@@ -20,7 +20,7 @@ public class Programa
 			try
 			{
 				Interface.limparTela();
-				Interface.imprimeTabuleiro(partida.getPecas());
+				Interface.imprimePartida(partida);
 				System.out.println();
 				System.out.print("Origem: ");
 				PosicaoXadrez origem = Interface.lerPosicaoXadrez(sc);

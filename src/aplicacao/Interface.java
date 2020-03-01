@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import xadrez.Cor;
+import xadrez.PartidaXadrez;
 import xadrez.PecaXadrez;
 import xadrez.PosicaoXadrez;
 
@@ -53,6 +54,14 @@ public class Interface
 		}		
 	}
 	
+	public static void imprimePartida (PartidaXadrez chessMatch)
+	{
+		imprimeTabuleiro(chessMatch.getPecas());
+		System.out.println();
+		System.out.println("Rodada: " + chessMatch.getRodada());
+		System.out.println("Aguardando movimento do jogador: " + chessMatch.getJogadorAtual());
+	}
+	
 	public static void imprimeTabuleiro(PecaXadrez[][] pieces)
 	{
 		for(int linha = 0; linha < pieces.length; linha++)
@@ -86,7 +95,7 @@ public class Interface
 	{
 		if (corFundo)
 		{
-			System.out.print(ANSI_YELLOW_BACKGROUND);
+			System.out.print(ANSI_BLUE_BACKGROUND);
 		}
 		if(piece == null)
 		{
