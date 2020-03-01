@@ -65,6 +65,10 @@ public class Interface
 		System.out.println();
 		System.out.println("Rodada: " + chessMatch.getRodada());
 		System.out.println("Aguardando movimento do jogador: " + chessMatch.getJogadorAtual());
+		if (chessMatch.getXeque())
+		{
+			System.out.println("XEQUE!");
+		}
 	}
 	
 	public static void imprimeTabuleiro(PecaXadrez[][] pieces)

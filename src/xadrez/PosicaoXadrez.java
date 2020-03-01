@@ -35,7 +35,7 @@ public class PosicaoXadrez
 	// Determina a posição no tabuleiro. Ex: a1, a2, etc.
 	protected static PosicaoXadrez fromPosicao(Posicao position)
 	{
-		return new PosicaoXadrez((char)('a' - position.getColuna()), 8 - position.getLinha());
+		return new PosicaoXadrez((char)('a' + position.getColuna()), 8 - position.getLinha());
 	}
 	
 	@Override
