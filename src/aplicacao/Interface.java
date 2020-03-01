@@ -1,7 +1,10 @@
 package aplicacao;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import xadrez.Cor;
 import xadrez.PartidaXadrez;
@@ -54,9 +57,11 @@ public class Interface
 		}		
 	}
 	
-	public static void imprimePartida (PartidaXadrez chessMatch)
+	public static void imprimePartida (PartidaXadrez chessMatch, List<PecaXadrez> capturadas)
 	{
 		imprimeTabuleiro(chessMatch.getPecas());
+		System.out.println();
+		imprimePecasCapturadas(capturadas);
 		System.out.println();
 		System.out.println("Rodada: " + chessMatch.getRodada());
 		System.out.println("Aguardando movimento do jogador: " + chessMatch.getJogadorAtual());
@@ -113,5 +118,24 @@ public class Interface
             }
 		}
 		System.out.print(" ");
+	}
+	
+	private static void imprimePecasCapturadas(List<PecaXadrez> capturada)
+	{
+		// Filtrando uma lista com uma expressão lâmbda.
+		List<PecaXadrez> brancas = capturada.stream().filter(x -> x.getCor() == Cor.BRANCO).collect(Collectors.toList());
+		List<PecaXadrez> pretas = capturada.stream().filter(x -> x.getCor() == Cor.PRETO).collect(Collectors.toList());
+		
+		System.out.println("Peças capturadas:");
+		System.out.print("Brancas: ");
+		System.out.print(ANSI_WHITE);
+		System.out.println(Arrays.toString(brancas.toArray()));
+		System.out.print(ANSI_RESET);
+		
+		System.out.println("Peças capturadas:");
+		System.out.print("Pretas: ");
+		System.out.print(ANSI_RED);
+		System.out.println(Arrays.toString(pretas.toArray()));
+		System.out.print(ANSI_RESET);		
 	}
 }
