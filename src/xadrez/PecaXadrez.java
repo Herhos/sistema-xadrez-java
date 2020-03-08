@@ -7,6 +7,7 @@ import tabuleirodejogo.Tabuleiro;
 public abstract class PecaXadrez extends Peca
 {
 	private Cor cor;
+	private int contaMovimentos; // Propriedade "int" por padrão inicia com zero e não precisa ser iniciado no construtor.
 
 	public PecaXadrez(Tabuleiro board, Cor color)
 	{
@@ -17,6 +18,21 @@ public abstract class PecaXadrez extends Peca
 	public Cor getCor()
 	{
 		return cor;
+	}
+	
+	public int getContaMovimentos()
+	{
+		return contaMovimentos;
+	}
+	
+	public void aumentaContaMovimentos()
+	{
+		contaMovimentos++;
+	}
+	
+	public void diminuiContaMovimentos()
+	{
+		contaMovimentos--;
 	}
 	
 	public PosicaoXadrez getPosicaoXadrez()
