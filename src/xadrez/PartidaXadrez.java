@@ -2,7 +2,6 @@ package xadrez;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import tabuleirodejogo.Peca;
@@ -13,12 +12,13 @@ import xadrez.pecas.Torre;
 
 public class PartidaXadrez
 {
-	// ATRIBUTOS //
+	// ATRIBUTOS E PROPRIEDADES //
 	
 	private int rodada;
 	private Cor jogadorAtual;	
 	private Tabuleiro tabuleiro;
 	private boolean xeque; // Propriedades boolean sempre iniciam como false.
+	private boolean xequeMate; // Propriedades boolean sempre iniciam como false.
 	
 	private List<Peca> pecasNoTabuleiro = new ArrayList<>();
 	private List<Peca> pecasCapturadas = new ArrayList<>();
@@ -47,6 +47,11 @@ public class PartidaXadrez
 	public boolean getXeque()
 	{
 		return xeque;
+	}
+	
+	public boolean getXequeMate()
+	{
+		return xequeMate;
 	}
 	
 	// MÉTODOS ESPECÍFICOS //
@@ -88,7 +93,15 @@ public class PartidaXadrez
 		
 		xeque = (testaXeque(adversario(jogadorAtual))) ? true : false;
 		
-		proximaRodada();
+		if (testaXequeMate(adversario(jogadorAtual)))
+		{
+			xequeMate = true;
+		}
+		else
+		{
+			proximaRodada();
+		}		
+		
 		return (PecaXadrez)pecaCapturada;
 	}
 	
@@ -189,6 +202,50 @@ public class PartidaXadrez
 		return false;
 	}
 	
+	private boolean testaXequeMate(Cor color)
+	{
+		if (!testaXeque(color))
+		{
+			return false;
+		}
+		
+		List<Peca> lista = pecasNoTabuleiro.stream().filter(x -> ((PecaXadrez)x).getCor() == color).
+				collect(Collectors.toList());
+		for (Peca p : lista)
+		{
+			// 1°) Pegando os movimentos possíveis da peça "p".
+			boolean [][] matriz = p.movimentosPossiveis();
+			// Percorrendo a matriz: linhas e colunas.
+			for (int linha = 0; linha < tabuleiro.getLinhas(); linha++)
+			{
+				for (int coluna = 0; coluna < tabuleiro.getColunas(); coluna++)
+				{
+					// Testando se cada elemento da matriz é um movimento possível.
+					if (matriz[linha][coluna])
+					{
+						// Testando se o movimento possível tira do xeque.
+						
+						// Fez-se um downcasting de "p" porque o atributo "posicao" de peca é protected. 
+						Posicao origem = ((PecaXadrez)p).getPosicaoXadrez().toPosicao();
+						Posicao destino = new Posicao(linha, coluna);
+						Peca pecaCapturada = movaPeca(origem, destino);
+						
+						// Testanto agora se o Rei da minha cor ainda está em xeque
+						boolean testeAgora = testaXeque(color);
+						desfazMovimento(origem, destino, pecaCapturada);
+						
+						// Se não estava em xeque, esse movimento tirou o Rei do xeque.
+						if (!testeAgora)
+						{
+							return false; // Retorna false porque não está em xeque-mate.
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
 	private void colocarNovaPeca(char column, int row, PecaXadrez piece)
 	{
 		tabuleiro.colocarPeca(piece, new PosicaoXadrez(column, row).toPosicao());
@@ -197,18 +254,11 @@ public class PartidaXadrez
 	
 	private void ajusteInicial()
 	{
-		colocarNovaPeca('c', 1, new Torre(tabuleiro, Cor.BRANCO));
-		colocarNovaPeca('c', 2, new Torre(tabuleiro, Cor.BRANCO));
-		colocarNovaPeca('d', 2, new Torre(tabuleiro, Cor.BRANCO));
-		colocarNovaPeca('e', 2, new Torre(tabuleiro, Cor.BRANCO));
-		colocarNovaPeca('e', 1, new Torre(tabuleiro, Cor.BRANCO));
-		colocarNovaPeca('d', 1, new Rei(tabuleiro, Cor.BRANCO));
-
-		colocarNovaPeca('c', 7, new Torre(tabuleiro, Cor.PRETO));
-		colocarNovaPeca('c', 8, new Torre(tabuleiro, Cor.PRETO));
-		colocarNovaPeca('d', 7, new Torre(tabuleiro, Cor.PRETO));
-		colocarNovaPeca('e', 7, new Torre(tabuleiro, Cor.PRETO));
-		colocarNovaPeca('e', 8, new Torre(tabuleiro, Cor.PRETO));
-		colocarNovaPeca('d', 8, new Rei(tabuleiro, Cor.PRETO));
+		colocarNovaPeca('h', 7, new Torre(tabuleiro, Cor.BRANCO));
+		colocarNovaPeca('d', 1, new Torre(tabuleiro, Cor.BRANCO));
+		colocarNovaPeca('e', 1, new Rei(tabuleiro, Cor.BRANCO));
+		
+		colocarNovaPeca('b', 8, new Torre(tabuleiro, Cor.PRETO));
+		colocarNovaPeca('a', 8, new Rei(tabuleiro, Cor.PRETO));		
 	}
 }

@@ -64,10 +64,18 @@ public class Interface
 		imprimePecasCapturadas(capturadas);
 		System.out.println();
 		System.out.println("Rodada: " + chessMatch.getRodada());
-		System.out.println("Aguardando movimento do jogador: " + chessMatch.getJogadorAtual());
-		if (chessMatch.getXeque())
+		if (!chessMatch.getXequeMate())
 		{
-			System.out.println("XEQUE!");
+			System.out.println("Aguardando movimento do jogador: " + chessMatch.getJogadorAtual());
+			if (chessMatch.getXeque())
+			{
+				System.out.println("XEQUE!");
+			}
+		}
+		else
+		{
+			System.out.println("XEQUE-MATE!");
+			System.out.println("Vencedor: " + chessMatch.getJogadorAtual());
 		}
 	}
 	
