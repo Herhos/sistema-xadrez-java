@@ -70,7 +70,7 @@ public class Peao extends PecaXadrez
 			
 			// Testa se está livre duas casas à frente
 			auxiliar.atualizaValores(posicao.getLinha() + 2, posicao.getColuna());
-			Posicao auxiliar2 = new Posicao(posicao.getLinha() - 1, posicao.getColuna());
+			Posicao auxiliar2 = new Posicao(posicao.getLinha() + 1, posicao.getColuna());
 			if (getTabuleiro().existePosicao2(auxiliar) && !getTabuleiro().existePeca(auxiliar) &&
 				getTabuleiro().existePosicao2(auxiliar2) && !getTabuleiro().existePeca(auxiliar2) &&
 				getContaMovimentos() == 0)
