@@ -45,7 +45,12 @@ public class Programa
 				if (partida.getPromovida() != null)
 				{
 					System.out.print("Escolha uma peça para promoção (B, C, T, R):");
-					String type = sc.nextLine();
+					String type = sc.nextLine().toUpperCase();
+					while (!type.equals("B") && !type.equals("C") && !type.equals("T") && !type.equals("R"))
+					{
+						System.out.print("Valor inválido, escolha uma peça para promoção (B, C, T, R):");
+						type = sc.nextLine().toUpperCase();
+					}
 					partida.trocaPecaPromovida(type);
 				}
 			}
